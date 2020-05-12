@@ -1,7 +1,7 @@
 #include "ofApp.h"
 
 //--------------------------------------------------------------
-const int nmax = 1000;
+const int nmax = 500;
 ofVec3f a[nmax];
 ofShader shader;
 float z = 0.0f;
