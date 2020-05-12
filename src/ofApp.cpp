@@ -11,7 +11,7 @@ void ofApp::setup(){
 	srand(time(NULL));
 	for (int i = 0; i < nmax; i++)
 	{
-		a[i] = { float(rand() % ofGetScreenWidth()), float(rand() % ofGetScreenHeight()), float(rand() % 400) };
+		a[i] = { float(rand() % ofGetWidth()), float(rand() % ofGetHeight()), float(rand() % 400) };
 		//cout << a[i].x << '\t' << a[i].y << '\n';
 	}
 	shader.begin();
