@@ -1,16 +1,17 @@
 #include "ofApp.h"
 
 //--------------------------------------------------------------
-const int nmax = 200;
-ofVec2f a[nmax];
+const int nmax = 1000;
+ofVec3f a[nmax];
 ofShader shader;
+float z = 0.0f;
 
 void ofApp::setup(){
 	shader.load("", "shader.frag");
 	srand(time(NULL));
 	for (int i = 0; i < nmax; i++)
 	{
-		a[i] = { float(rand() % ofGetScreenWidth()), float(rand() % ofGetScreenHeight()) };
+		a[i] = { float(rand() % ofGetScreenWidth()), float(rand() % ofGetScreenHeight()), float(rand() % 400) };
 		//cout << a[i].x << '\t' << a[i].y << '\n';
 	}
 }
@@ -24,10 +25,12 @@ void ofApp::update(){
 void ofApp::draw(){
 	ofSetBackgroundColor(0, 0, 0);
 
+	z += 1; if (z > 400) z = 0;
+
 	shader.begin();
-	shader.setUniform1f("u_time", ofGetElapsedTimef());
+	shader.setUniform1f("u_z", z);
 	shader.setUniform2f("u_resolution", ofGetWidth(), ofGetHeight());
-	shader.setUniform2fv("u_p", (float*)&a[0].x, nmax);
+	shader.setUniform3fv("u_p", (float*)&a[0].x, nmax);
 	ofRect(0, 0, ofGetWidth(), ofGetHeight());
 	shader.end();
 }
