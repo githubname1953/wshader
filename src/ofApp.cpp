@@ -14,6 +14,9 @@ void ofApp::setup(){
 		a[i] = { float(rand() % ofGetScreenWidth()), float(rand() % ofGetScreenHeight()), float(rand() % 400) };
 		//cout << a[i].x << '\t' << a[i].y << '\n';
 	}
+	shader.begin();
+	shader.setUniform3fv("u_p", (float*)&a[0].x, nmax);
+	shader.end();
 }
 
 //--------------------------------------------------------------
@@ -30,7 +33,7 @@ void ofApp::draw(){
 	shader.begin();
 	shader.setUniform1f("u_z", z);
 	shader.setUniform2f("u_resolution", ofGetWidth(), ofGetHeight());
-	shader.setUniform3fv("u_p", (float*)&a[0].x, nmax);
+	//shader.setUniform3fv("u_p", (float*)&a[0].x, nmax);
 	ofRect(0, 0, ofGetWidth(), ofGetHeight());
 	shader.end();
 }
