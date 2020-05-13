@@ -3,7 +3,7 @@
 using namespace std;
 
 //--------------------------------------------------------------
-const int nmax = 500;
+const int nmax = 400;
 ofVec3f a[nmax];
 ofShader shader;
 float z = 0.0f;

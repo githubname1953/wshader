@@ -3,7 +3,7 @@ precision mediump float;
 #endif
 
 #define PROCESSING_COLOR_SHADER
-#define nmax 500
+#define nmax 400
 
 uniform vec2 u_resolution;
 uniform float u_z;
