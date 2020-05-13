@@ -1,4 +1,6 @@
 #include "ofApp.h"
+#include <random>
+using namespace std;
 
 //--------------------------------------------------------------
 const int nmax = 500;
@@ -8,14 +10,14 @@ float z = 0.0f;
 
 void ofApp::setup(){
 	shader.load("", "shader.frag");
-	srand(time(NULL));
+	random_device rd; mt19937 mg(rd());
 	for (int i = 0; i < nmax; i++)
 	{
-		a[i] = { float(rand() % ofGetWidth()), float(rand() % ofGetHeight()), float(rand() % 400) };
+		a[i] = { float(mg() % ofGetWidth()), float(mg() % ofGetHeight()), float(mg() % 400) };
 		//cout << a[i].x << '\t' << a[i].y << '\n';
 	}
 	shader.begin();
-	shader.setUniform3fv("u_p", (float*)&a[0].x, nmax);
+	shader.setUniform3fv("u_p", &a[0].x, nmax);
 	shader.end();
 }
 
