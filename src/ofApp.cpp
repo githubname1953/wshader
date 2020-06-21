@@ -7,8 +7,11 @@ const int nmax = 400;
 ofVec3f a[nmax];
 ofShader shader;
 float z = 0.0f;
+ofFbo fbo;
 
 void ofApp::setup(){
+	ofDisableArbTex();
+	fbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
 	shader.load("", "shader.frag");
 	random_device rd; mt19937 mg(rd());
 	for (int i = 0; i < nmax; i++)
@@ -19,6 +22,10 @@ void ofApp::setup(){
 	shader.begin();
 	shader.setUniform3fv("u_p", &a[0].x, nmax);
 	shader.end();
+
+	fbo.begin();
+	ofClear(0,0,0,0);
+	fbo.end();
 }
 
 //--------------------------------------------------------------
@@ -32,12 +39,15 @@ void ofApp::draw(){
 
 	z += 1; if (z > 400) z = 0;
 
+	fbo.begin();
 	shader.begin();
 	shader.setUniform1f("u_z", z);
 	shader.setUniform2f("u_resolution", ofGetWidth(), ofGetHeight());
 	//shader.setUniform3fv("u_p", (float*)&a[0].x, nmax);
 	ofRect(0, 0, ofGetWidth(), ofGetHeight());
 	shader.end();
+	fbo.end();
+	fbo.draw(0, 0);
 }
 
 //--------------------------------------------------------------
