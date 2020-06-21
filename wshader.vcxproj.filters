@@ -103,5 +103,6 @@
     <None Include="bin\data\shaderw.frag">
       <Filter>src</Filter>
     </None>
+    <None Include="bin\data\shaderdraw.frag" />
   </ItemGroup>
 </Project>

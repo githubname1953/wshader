@@ -6,13 +6,15 @@ using namespace std;
 const int nmax = 400;
 ofVec3f a[nmax];
 ofShader shader;
+ofShader shader1;
 float z = 0.0f;
-ofFbo fbo;
+ofFbo fbo; ofFbo fbod;
 
 void ofApp::setup(){
-	ofDisableArbTex();
+	//ofDisableArbTex();
 	fbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
 	shader.load("", "shader.frag");
+	shader1.load("", "shaderdraw.frag");
 	random_device rd; mt19937 mg(rd());
 	for (int i = 0; i < nmax; i++)
 	{
@@ -47,7 +49,14 @@ void ofApp::draw(){
 	ofRect(0, 0, ofGetWidth(), ofGetHeight());
 	shader.end();
 	fbo.end();
-	fbo.draw(0, 0);
+	
+	fbod.begin();
+	shader1.begin();
+	shader1.setUniformTexture("fbtext", fbo.getTextureReference(0), 0);
+	ofRect(0, 0, ofGetWidth(), ofGetHeight());
+	shader1.end();
+	fbod.end();
+	fbod.draw(0, 0);
 }
 
 //--------------------------------------------------------------
